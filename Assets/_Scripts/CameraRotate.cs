@@ -32,6 +32,10 @@ public class CameraRotate : MonoBehaviour {
 			}
 		}
 		transform.rotation=Quaternion.Euler(transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y,0);
+
+
+		if (Input.GetKeyDown (KeyCode.Escape))
+			AppManager.instance.ShowUI ();
 	}
 	
 	

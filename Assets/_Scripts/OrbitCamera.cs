@@ -76,7 +76,7 @@ public class OrbitCamera : MonoBehaviour
 	}
     private void Start()
     {
-		//SetTouchParameters ();
+		SetTouchParameters ();
 
         this.targetDistance = this.distance;
         if (this.invertAxisX)

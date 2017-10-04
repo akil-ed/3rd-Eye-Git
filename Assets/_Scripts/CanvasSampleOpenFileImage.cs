@@ -12,10 +12,11 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
     public string Title = "";
     public string FileName = "";
     public string Directory = "";
-    public string Extension = "";
+	public string Extension = "*.png;*.jpg;*.jpeg";
     public bool Multiselect = false;
 
     public RawImage output;
+	public SpriteRenderer output360;
 	public Renderer Target;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -49,5 +50,12 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
         var loader = new WWW(url);
         yield return loader;
         output.texture = loader.texture;
+		//Target.material.mainTexture = loader.texture;
+		float pixelScale = 100 + ((loader.texture.width - 2000)/20);
+		output360.sprite = Sprite.Create (loader.texture, new Rect (0, 0, loader.texture.width, loader.texture.height), new Vector2(0.5f,0.5f),pixelScale,0,SpriteMeshType.FullRect,new Vector4(10,10,10,10));
+		Sprite test;
+		//test.packingMode = WrapMode.Clamp;
     }
+
+
 }
