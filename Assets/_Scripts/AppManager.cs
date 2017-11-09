@@ -20,6 +20,11 @@ public class AppManager : MonoBehaviour {
 	public CameraOrbitSettings CitySettings,PreviewSettings,CustomOrbitSettings;
 	public GameObject SelectedModel,ModelImportSettingsCanvas,OrbitSettingsCanvas;
 	public ModelSettings CustomFileImportSettings;
+	public GameObject RenderImage3D;
+	public GameObject Save360Renderimage;
+	public GameObject RoomAddPrefab;
+	public GameObject roomAddContant;
+
 	void Awake(){
 		instance = this;
 	}
@@ -66,6 +71,17 @@ public class AppManager : MonoBehaviour {
 		//LoadModel ("D:/ElectronicDreaming/Projects/3rd Eye/Building2.fbx");
 	}
 
+	public void Save360() {
+		Save360Renderimage.SetActive (true);
+	}
+
+	public void Save3D(){
+		OrbitCam.target = City;
+		OrbitSettingsCanvas.SetActive (false);
+		AssignOrbitCamSettings (OrbitCam, CitySettings);
+		RenderImage3D.SetActive (true);
+	}
+
 	public void UpdateSaveFile(){
 		
 		//print (Application.persistentDataPath);
@@ -75,6 +91,13 @@ public class AppManager : MonoBehaviour {
 		writer.WriteLine (JsonConvert.SerializeObject (Projects));
 		writer.Close ();
 
+	}
+
+	public void AddRoom(){
+		GameObject RoomName = Instantiate (RoomAddPrefab);
+		RoomName.transform.SetParent (roomAddContant.transform);
+		RoomName.transform.localScale = Vector3.one;
+		roomAddContant.GetComponent <RectTransform> ().sizeDelta = new Vector2 (0, roomAddContant.GetComponent <RectTransform> ().rect.height + 150);
 	}
 
 	public void UpdateModelSettings(){
